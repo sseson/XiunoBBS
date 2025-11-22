@@ -17,7 +17,7 @@
 function_exists('ini_set') AND ini_set('display_errors', DEBUG ? '1' : '0');
 error_reporting(DEBUG ? E_ALL : 0);
 version_compare(PHP_VERSION, '5.3.0', '<') AND set_magic_quotes_runtime(0);
-$get_magic_quotes_gpc = get_magic_quotes_gpc();
+$get_magic_quotes_gpc = version_compare(PHP_VERSION,'5.4.0','<') ? get_magic_quotes_gpc() : false;
 $starttime = microtime(1);
 $time = time();
 
@@ -126,5 +126,6 @@ unset($conf['cache']['mysql']['db']); // 用完清除，防止保存到配置文
 
 $_SERVER['db'] = $db;
 $_SERVER['cache'] = $cache;
+
 
 ?>
